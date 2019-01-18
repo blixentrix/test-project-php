@@ -1,6 +1,6 @@
 <h1>PHP Test Application</h1>
 
-<table>
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -9,26 +9,30 @@
 		</tr>
 	</thead>
 	<tbody>
-		<?foreach($users as $user){?>
+		<?php
+		foreach($users as $user){?>
 		<tr>
 			<td><?=$user->getName()?></td>
 			<td><?=$user->getEmail()?></td>
 			<td><?=$user->getCity()?></td>
 		</tr>
-		<?}?>
+		<?php }?>
 	</tbody>
 </table>				
 
-<form method="post" action="create.php">
+<form method="post" class="form-horizontal" action="create.php">
+	<div class="form-group row">
+	<label class="control-label" for="name">Name:</label>
+	<input class="form-control" name="name" input="text" id="name" required />
 	
-	<label for="name">Name:</label>
-	<input name="name" input="text" id="name"/>
+	<label class="control-label" for="email">E-mail:</label>
+	<input class="form-control" name="email" type="email" input="text" id="email" required/>
 	
-	<label for="email">E-mail:</label>
-	<input name="email" input="text" id="email"/>
+	<label class="control-label" for="city">City:</label>
+	<input class="form-control" name="city" input="text" id="city" required/>
+	</div>
 	
-	<label for="city">City:</label>
-	<input name="city" input="text" id="city"/>
-	
-	<button>Create new row</button>
+	<div class="form-group row">
+		<button class="btn btn-primary">Create new row</button>
+	</div>
 </form>
