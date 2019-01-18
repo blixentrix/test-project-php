@@ -9,7 +9,7 @@
 			<th>Phone</th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody id="table-body">
 		<?php
 		foreach($users as $user){?>
 		<tr>
@@ -22,7 +22,7 @@
 	</tbody>
 </table>				
 
-<form method="post" class="form-horizontal" action="create.php">
+<form id="new-post-form" method="post" class="form-horizontal" action="create.php">
 	<div class="form-group row">
 	<label class="control-label" for="name">Name:</label>
 	<input class="form-control" name="name" input="text" id="name" required />
@@ -41,3 +41,28 @@
 		<button class="btn btn-primary">Create new row</button>
 	</div>
 </form>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#new-post-form').submit(function(e) {
+
+
+		    var form = $(this);
+		    var url = form.attr('action');
+
+		    $.ajax({
+		           type: "POST",
+		           url: url,
+		           data: form.serialize(),
+		           success: function(data)
+		           {
+	           	       $('#new-post-form').trigger('reset');
+	           	       let new_element = "<tr><td>" + data.name + "</td><td>" + data.email + "</td><td>" + data.city + "</td><td>" + data.phone + "</td></tr>"; 
+		               $("tbody").append(new_element);
+		           }
+		         });
+
+		    e.preventDefault();
+		});
+	});
+</script>
