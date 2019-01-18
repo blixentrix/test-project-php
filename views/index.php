@@ -1,5 +1,13 @@
 <h1>PHP Test Application</h1>
 
+<form id="search-form" method="get" class="form-horizontal" action="search.php">
+	<div class="form-group row">
+	<label class="control-label" for="city">Search by city:</label>
+	<input class="form-control" name="city" input="text" id="city" />
+	<button class="btn btn-primary">Search</button>
+	</div>
+</form>
+
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -59,6 +67,29 @@
 	           	       $('#new-post-form').trigger('reset');
 	           	       let new_element = "<tr><td>" + data.name + "</td><td>" + data.email + "</td><td>" + data.city + "</td><td>" + data.phone + "</td></tr>"; 
 		               $("tbody").append(new_element);
+		           }
+		         });
+
+		    e.preventDefault();
+		});
+
+		$('#search-form').submit(function(e) {
+
+
+		    var form = $(this);
+		    var url = form.attr('action');
+
+		    $.ajax({
+		           type: "GET",
+		           url: url,
+		           data: form.serialize(),
+		           success: function(data)
+		           {
+		           		$("tbody").empty();
+		           		for (var i =  0; i < data.length; i++) {
+		           	       let new_element = "<tr><td>" + data[i].name + "</td><td>" + data[i].email + "</td><td>" + data[i].city + "</td><td>" + data[i].phone + "</td></tr>"; 
+			               $("tbody").append(new_element);
+		           		}
 		           }
 		         });
 
